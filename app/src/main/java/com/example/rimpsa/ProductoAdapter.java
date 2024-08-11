@@ -67,15 +67,10 @@ public class ProductoAdapter extends BaseAdapter {
 
         btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditarProducto.class);
-            intent.putExtra("id", producto.getId());
-            intent.putExtra("nombre", producto.getNombre());
-            intent.putExtra("marca", producto.getMarca());
-            intent.putExtra("descripcion", producto.getDescripcion());
-            intent.putExtra("precio", producto.getPrecio());
-            intent.putExtra("estatus", producto.getEstatus());
-            intent.putExtra("cantidad", producto.getCantidad());
-            ((Producto) context).startActivityForResult(intent, ((Producto) context).REQUEST_CODE_EDITAR);
+            intent.putExtra("producto", producto); // Pasar el objeto completo como Parcelable
+            ((Producto) context).startActivityForResult(intent, Producto.REQUEST_CODE_EDITAR);
         });
+
 
         btnEliminar.setOnClickListener(v -> {
             productos.remove(position);

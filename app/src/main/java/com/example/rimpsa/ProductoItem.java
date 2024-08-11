@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ProductoItem implements Parcelable {
-    public static final int DEFAULT_IMAGE_ID = 0;
     private String id;
     private String nombre;
     private String marca;
@@ -14,7 +13,9 @@ public class ProductoItem implements Parcelable {
     private int cantidad;
     private int imagen;
 
-    public ProductoItem(String id, String nombre, String marca, String descripcion, String precio, String estatus, int cantidad, int imagen) {
+    public static final int DEFAULT_IMAGE_ID = R.drawable.ic_launcher_background;
+
+    public ProductoItem(String id, String nombre, String marca, String descripcion, String precio, String estatus, int cantidad, int imageResId) {
         this.id = id;
         this.nombre = nombre;
         this.marca = marca;
@@ -22,7 +23,7 @@ public class ProductoItem implements Parcelable {
         this.precio = precio;
         this.estatus = estatus;
         this.cantidad = cantidad;
-        this.imagen = imagen;
+        this.imagen = imageResId != 0 ? imageResId : DEFAULT_IMAGE_ID;
     }
 
     protected ProductoItem(Parcel in) {
@@ -48,24 +49,55 @@ public class ProductoItem implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
+    // Métodos de acceso (getters y setters)
+
+    public String getId() {
+        return id;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(nombre);
-        dest.writeString(marca);
-        dest.writeString(descripcion);
-        dest.writeString(precio);
-        dest.writeString(estatus);
-        dest.writeInt(cantidad);
-        dest.writeInt(imagen);
+    public void setId(String id) {
+        this.id = id;
     }
 
-    // getters y setters
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
 
     public int getCantidad() {
         return cantidad;
@@ -75,59 +107,29 @@ public class ProductoItem implements Parcelable {
         this.cantidad = cantidad;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public String getPrecio() {
-        return precio;
-    }
-
-    public String getEstatus() {
-        return estatus;
-    }
 
     public int getImagen() {
         return imagen;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setPrecio(String precio) {
-        this.precio = precio;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
-
     public void setImagen(int imagen) {
         this.imagen = imagen;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(nombre);
+        parcel.writeString(marca);
+        parcel.writeString(descripcion);
+        parcel.writeString(precio);
+        parcel.writeString(estatus);
+        parcel.writeInt(cantidad);
+        parcel.writeInt(imagen);
     }
 }

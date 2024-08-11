@@ -34,7 +34,7 @@ public class EditarProducto extends AppCompatActivity {
         btnGuardar = findViewById(R.id.btnGuardar);
 
         Intent intent = getIntent();
-        ProductoItem producto = (ProductoItem) intent.getSerializableExtra("producto");
+        ProductoItem producto = intent.getParcelableExtra("producto");
 
         if (producto != null) {
             editTextId.setText(producto.getId());
@@ -46,27 +46,23 @@ public class EditarProducto extends AppCompatActivity {
             editTextCantidad.setText(String.valueOf(producto.getCantidad()));
         }
 
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validarCampos()) {
-                    ProductoItem productoEditado = new ProductoItem(
-                            editTextId.getText().toString(),
-                            editTextNombre.getText().toString(),
-                            editTextMarca.getText().toString(),
-                            editTextDescripcion.getText().toString(),
-                            editTextPrecio.getText().toString(),
-                            editTextEstatus.getText().toString(),
-                            Integer.parseInt(editTextCantidad.getText().toString()),
-                            R.drawable.ic_launcher_background // Revisar si este recurso es correcto
+        btnGuardar.setOnClickListener(v -> {
+            if (validarCampos()) {
+                ProductoItem productoEditado = new ProductoItem(
+                        editTextId.getText().toString(),
+                        editTextNombre.getText().toString(),
+                        editTextMarca.getText().toString(),
+                        editTextDescripcion.getText().toString(),
+                        editTextPrecio.getText().toString(),
+                        editTextEstatus.getText().toString(),
+                        Integer.parseInt(editTextCantidad.getText().toString()),
+                        ProductoItem.DEFAULT_IMAGE_ID // Usa la imagen predeterminada
+                );
 
-                    );
-
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("productoEditado", productoEditado);
-                    setResult(RESULT_OK, resultIntent);
-                    finish();
-                }
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("productoEditado", productoEditado);
+                setResult(RESULT_OK, resultIntent);
+                finish();
             }
         });
     }
@@ -107,17 +103,6 @@ public class EditarProducto extends AppCompatActivity {
         if (editTextCantidad.getText().toString().trim().isEmpty()) {
             editTextCantidad.setError("Ingrese una cantidad");
             isValid = false;
-        } else {
-            try {
-                Integer.parseInt(editTextCantidad.getText().toString());
-            } catch (NumberFormatException e) {
-                editTextCantidad.setError("Ingrese una cantidad válida");
-                isValid = false;
-            }
-        }
-
-        if (!isValid) {
-            Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
         }
 
         return isValid;
