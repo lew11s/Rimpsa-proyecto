@@ -45,25 +45,26 @@
 
     <Button
         android:id="@+id/btnAgregar"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Agregar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnInventario"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.5"/>
 
     <Button
         android:id="@+id/btnInventario"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Inventario"
-        app:layout_constraintBottom_toTopOf="@id/btnAgregar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnAgregar"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintWidth_percent="0.5"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

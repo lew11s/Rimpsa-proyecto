@@ -46,12 +46,13 @@ public class ProductoAdapter extends BaseAdapter {
         ProductoItem producto = productos.get(position);
 
         ImageView imageView = convertView.findViewById(R.id.imageViewProducto);
-        TextView textViewId = convertView.findViewById(R.id.textViewId); // Nuevo
+        TextView textViewId = convertView.findViewById(R.id.textViewId);
         TextView textViewNombre = convertView.findViewById(R.id.textViewNombre);
-        TextView textViewMarca = convertView.findViewById(R.id.textViewMarca); // Nuevo
+        TextView textViewMarca = convertView.findViewById(R.id.textViewMarca);
         TextView textViewDescripcion = convertView.findViewById(R.id.textViewDescripcion);
-        TextView textViewPrecio = convertView.findViewById(R.id.textViewPrecio); // Nuevo
-        TextView textViewEstatus = convertView.findViewById(R.id.textViewEstatus); // Nuevo
+        TextView textViewPrecio = convertView.findViewById(R.id.textViewPrecio);
+        TextView textViewEstatus = convertView.findViewById(R.id.textViewEstatus);
+        TextView textViewCantidad = convertView.findViewById(R.id.textViewCantidad);
         Button btnEditar = convertView.findViewById(R.id.btnEditar);
         Button btnEliminar = convertView.findViewById(R.id.btnEliminar);
 
@@ -62,6 +63,7 @@ public class ProductoAdapter extends BaseAdapter {
         textViewDescripcion.setText(producto.getDescripcion());
         textViewPrecio.setText(producto.getPrecio());
         textViewEstatus.setText(producto.getEstatus());
+        textViewCantidad.setText(String.valueOf(producto.getCantidad()));
 
         btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditarProducto.class);
@@ -71,6 +73,7 @@ public class ProductoAdapter extends BaseAdapter {
             intent.putExtra("descripcion", producto.getDescripcion());
             intent.putExtra("precio", producto.getPrecio());
             intent.putExtra("estatus", producto.getEstatus());
+            intent.putExtra("cantidad", producto.getCantidad());
             ((Producto) context).startActivityForResult(intent, ((Producto) context).REQUEST_CODE_EDITAR);
         });
 

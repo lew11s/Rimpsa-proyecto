@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private void validateLogin(String username, String password) {
         if (username.equals(validUsername) && password.equals(validPassword)) {
 
-            Intent ventana = new Intent(MainActivity.this, Menu.class);
+            Intent ventana = new Intent(MainActivity.this, MenuActivity.class);
             startActivity(ventana);
         } else {
 

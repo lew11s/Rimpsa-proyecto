@@ -20,7 +20,7 @@ public class EliminarProducto extends AppCompatActivity {
         btnConfirmDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Aquí puedes añadir la lógica para eliminar el producto
+
                 Intent intent = new Intent(EliminarProducto.this, Producto.class);
                 startActivity(intent);
                 finish();

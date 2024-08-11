@@ -19,7 +19,7 @@
             android:name=".Producto"
             android:exported="false" />
         <activity
-            android:name=".Menu"
+            android:name=".MenuActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

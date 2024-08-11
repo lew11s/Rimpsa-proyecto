@@ -21,7 +21,6 @@ public class Producto extends AppCompatActivity {
     private List<ProductoItem> productos;
     private ProductoAdapter adapter;
     private final int REQUEST_CODE_AGREGAR = 1;
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +33,9 @@ public class Producto extends AppCompatActivity {
 
         productos = new ArrayList<>();
 
-        // Adding some default products
-        productos.add(new ProductoItem("1", "Producto 1", "Marca 1", "Descripción del producto 1", "$100", "Disponible", R.drawable.ic_launcher_background));
-        productos.add(new ProductoItem("2", "Producto 2", "Marca 2", "Descripción del producto 2", "$150", "Agotado", R.drawable.ic_launcher_background));
+
+        productos.add(new ProductoItem("1", "Producto 1", "Marca 1", "Descripción del producto 1", "$100", "Disponible", 50, R.drawable.ic_launcher_background));
+        productos.add(new ProductoItem("2", "Producto 2", "Marca 2", "Descripción del producto 2", "$150", "Agotado", 0, R.drawable.ic_launcher_background));
 
         adapter = new ProductoAdapter(this, productos);
         listViewProductos.setAdapter((ListAdapter) adapter);
@@ -60,6 +59,7 @@ public class Producto extends AppCompatActivity {
             intent.putExtra("descripcion", producto.getDescripcion());
             intent.putExtra("precio", producto.getPrecio());
             intent.putExtra("estatus", producto.getEstatus());
+            intent.putExtra("cantidad", producto.getCantidad());
             startActivityForResult(intent, REQUEST_CODE_EDITAR);
         });
     }
@@ -75,8 +75,9 @@ public class Producto extends AppCompatActivity {
                 String descripcion = data.getStringExtra("descripcion");
                 String precio = data.getStringExtra("precio");
                 String estatus = data.getStringExtra("estatus");
+                int cantidad = data.getIntExtra("cantidad", 0);
 
-                productos.add(new ProductoItem(id, nombre, marca, descripcion, precio, estatus, R.drawable.ic_launcher_background));
+                productos.add(new ProductoItem(id, nombre, marca, descripcion, precio, estatus, cantidad, R.drawable.ic_launcher_background));
                 adapter.notifyDataSetChanged();
             } else if (requestCode == REQUEST_CODE_EDITAR) {
                 String id = data.getStringExtra("id");
@@ -85,6 +86,7 @@ public class Producto extends AppCompatActivity {
                 String descripcion = data.getStringExtra("descripcion");
                 String precio = data.getStringExtra("precio");
                 String estatus = data.getStringExtra("estatus");
+                int cantidad = data.getIntExtra("cantidad", 0);
 
                 for (ProductoItem producto : productos) {
                     if (producto.getId().equals(id)) {
@@ -93,6 +95,7 @@ public class Producto extends AppCompatActivity {
                         producto.setDescripcion(descripcion);
                         producto.setPrecio(precio);
                         producto.setEstatus(estatus);
+                        producto.setCantidad(cantidad);
                         break;
                     }
                 }

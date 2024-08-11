@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AgregarProducto extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class AgregarProducto extends AppCompatActivity {
     private EditText editTextDescripcion;
     private EditText editTextPrecio;
     private EditText editTextEstatus;
+    private EditText editTextCantidad;
     private Button btnGuardar;
 
     @Override
@@ -28,26 +30,65 @@ public class AgregarProducto extends AppCompatActivity {
         editTextDescripcion = findViewById(R.id.editTextDescripcion);
         editTextPrecio = findViewById(R.id.editTextPrecio);
         editTextEstatus = findViewById(R.id.editTextEstatus);
+        editTextCantidad = findViewById(R.id.editTextCantidad);
         btnGuardar = findViewById(R.id.btnGuardar);
 
         btnGuardar.setOnClickListener(v -> {
-            String id = editTextID.getText().toString();
-            String nombre = editTextNombre.getText().toString();
-            String marca = editTextMarca.getText().toString();
-            String descripcion = editTextDescripcion.getText().toString();
-            String precio = editTextPrecio.getText().toString();
-            String estatus = editTextEstatus.getText().toString();
+            if (validarCampos()) {
+                String id = editTextID.getText().toString();
+                String nombre = editTextNombre.getText().toString();
+                String marca = editTextMarca.getText().toString();
+                String descripcion = editTextDescripcion.getText().toString();
+                String precio = editTextPrecio.getText().toString();
+                String estatus = editTextEstatus.getText().toString();
+                int cantidad = Integer.parseInt(editTextCantidad.getText().toString());
 
-            // Return result to Producto Activity
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("id", id);
-            resultIntent.putExtra("nombre", nombre);
-            resultIntent.putExtra("marca", marca);
-            resultIntent.putExtra("descripcion", descripcion);
-            resultIntent.putExtra("precio", precio);
-            resultIntent.putExtra("estatus", estatus);
-            setResult(RESULT_OK, resultIntent);
-            finish();
+                ProductoItem nuevoProducto = new ProductoItem(
+                        id,
+                        nombre,
+                        marca,
+                        descripcion,
+                        precio,
+                        estatus,
+                        cantidad,
+                        ProductoItem.DEFAULT_IMAGE_ID
+                );
+
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("nuevoProducto", nuevoProducto);
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            } else {
+                Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+            }
         });
+    }
+
+    private boolean validarCampos() {
+        boolean isValid = true;
+
+        if (editTextID.getText().toString().trim().isEmpty()) {
+            isValid = false;
+        }
+        if (editTextNombre.getText().toString().trim().isEmpty()) {
+            isValid = false;
+        }
+        if (editTextMarca.getText().toString().trim().isEmpty()) {
+            isValid = false;
+        }
+        if (editTextDescripcion.getText().toString().trim().isEmpty()) {
+            isValid = false;
+        }
+        if (editTextPrecio.getText().toString().trim().isEmpty()) {
+            isValid = false;
+        }
+        if (editTextEstatus.getText().toString().trim().isEmpty()) {
+            isValid = false;
+        }
+        if (editTextCantidad.getText().toString().trim().isEmpty()) {
+            isValid = false;
+        }
+
+        return isValid;
     }
 }
